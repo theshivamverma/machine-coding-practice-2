@@ -34,7 +34,7 @@ function CartList() {
     .reduce(
       (acc, cartItem) =>
         (acc =
-          acc + Number(cartItem.product.mrp) - Number(cartItem.product.price) * Number(cartItem.quantity)),
+          acc + (Number(cartItem.product.mrp) - Number(cartItem.product.price)) * Number(cartItem.quantity)),
       0
     );
 

@@ -34,7 +34,7 @@ function ProductCard({ product }) {
       <div className="og-price">
         <span className="price-cut">Rs. {product.mrp}</span>
         <span className="discount">
-          ({Math.floor((product.price * 100) / product.mrp)}% Off)
+          ({Math.floor(((product.mrp - product.price) * 100) / product.mrp)}% Off)
         </span>
         <span className="review bgAlertGreen colorWhite m-0-05 border-round">
           <span className="review-text">4.5</span>

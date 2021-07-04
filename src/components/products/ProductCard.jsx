@@ -1,25 +1,26 @@
+/* eslint-disable */
+
 import { useState, useEffect } from "react";
 import { useProduct } from "../products";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
 function ProductCard({ product }) {
+  const [inCart, setInCart] = useState(false);
+  const { productsData, productDispatch } = useProduct();
 
-    const [inCart, setInCart] = useState(false)
-  const { productsData,productDispatch } = useProduct();
+  const { cart } = productsData;
 
-  const { cart } = productsData
+  function setInCartFlag() {
+    cart.forEach((cartItem) => {
+      if (cartItem.product.id === product.id) {
+        setInCart(true);
+      }
+    });
+  }
 
-    function setInCartFlag(){
-        cart.forEach(cartItem => {
-            if(cartItem.product.id === product.id){
-                setInCart(true)
-            }
-        })
-    }
-
-    useEffect(() => {
-        setInCartFlag()
-    }, [cart])
+  useEffect(() => {
+    setInCartFlag();
+  }, [cart]);
 
   return (
     <div className="card-product p-05 card-shadow">
@@ -32,7 +33,9 @@ function ProductCard({ product }) {
       <h2 className="price mt-05">Rs {product.price}</h2>
       <div className="og-price">
         <span className="price-cut">Rs. {product.mrp}</span>
-        <span className="discount">({Math.floor(product.price * 100 / product.mrp)}% Off)</span>
+        <span className="discount">
+          ({Math.floor((product.price * 100) / product.mrp)}% Off)
+        </span>
         <span className="review bgAlertGreen colorWhite m-0-05 border-round">
           <span className="review-text">4.5</span>
           <i className="fas fa-star"></i>
@@ -40,7 +43,10 @@ function ProductCard({ product }) {
       </div>
       {inCart ? (
         <Link to="/cart">
-          <button style={{width: "100%"}} className="btn btn-col btn-primary mt-1 border-round">
+          <button
+            style={{ width: "100%" }}
+            className="btn btn-col btn-primary mt-1 border-round"
+          >
             Go to Cart
           </button>
         </Link>
